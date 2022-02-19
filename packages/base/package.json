@@ -1,0 +1,21 @@
+{
+  "name": "@nab/base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "module": "build/module/index.js",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+    "describe": "npm-scripts-info",
+    "build": "yarn run build:main",
+    "build:main": "tsc -p tsconfig.json",
+    "build:module": "tsc -p tsconfig.module.json",
+    "watch": "tsc -p tsconfig.json -w",
+    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('web-ui must be installed with Yarn: https://yarnpkg.com/')\""
+  },
+  "dependencies": {
+    "@types/node": "^16.0.1"
+  }
+}

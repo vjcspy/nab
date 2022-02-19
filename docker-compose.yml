@@ -1,0 +1,41 @@
+version: "3.5"
+
+services: 
+  mysql:
+    image: mysql:latest
+    container_name: "${STACK_NAME}-db"
+    domainname: "${STACK_NAME}-db"
+    hostname: "${STACK_NAME}-db"
+    ports:
+      - "3308:3306"
+    networks:
+      - kstock-sync-network
+    volumes:
+      - mysql-kstock:/var/lib/mysql
+      - ./docker_data/logs/mysql:/var/log/mysql:delegated
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    env_file: .env
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: "${STACK_NAME}-rbmq"
+    ports:
+        - 5673:5672
+        - 15673:15672
+    volumes:
+        - ./docker_data/rabbitmq/mnesia/:/var/lib/rabbitmq/mnesia
+        - ./docker_data/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - kstock-sync-network
+    env_file: .env
+
+volumes:
+  mysql-kstock:
+    driver: local
+
+networks:
+  kstock-sync-network:

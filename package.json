@@ -1,0 +1,14 @@
+{
+  "name": "@nab/ass",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "yarn workspace @nab/http dev",
+    "test": "yarn workspace @nab/http test",
+    "build": "yarn workspace @nab/base build && yarn workspace @nab/http build"
+  }
+}
